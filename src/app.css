@@ -70,7 +70,9 @@
 @layer base {
 	* {
 		@apply border-border;
-		font-family: 'IBM Plex Mono', ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
+		font-family:
+			'IBM Plex Mono', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+			'Segoe UI Symbol', 'Noto Color Emoji';
 	}
 	body {
 		@apply bg-background text-foreground;

@@ -39,4 +39,4 @@ You can preview the production build with `npm run preview`.
 
 ## The icons added on the top thingy are as follows.
 
-```https://emojicombos.com/sparkles```
+`https://emojicombos.com/sparkles`
