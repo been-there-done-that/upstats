@@ -63,9 +63,15 @@ importers:
       globals:
         specifier: ^15.14.0
         version: 15.15.0
+      lucide-svelte:
+        specifier: ^0.475.0
+        version: 0.475.0(svelte@5.20.0)
       mode-watcher:
         specifier: ^0.5.1
         version: 0.5.1(svelte@5.20.0)
+      paneforge:
+        specifier: 1.0.0-next.3
+        version: 1.0.0-next.3(svelte@5.20.0)
       prettier:
         specifier: ^3.4.2
         version: 3.5.1
@@ -1892,6 +1898,11 @@ packages:
   lru-cache@10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
 
+  lucide-svelte@0.475.0:
+    resolution: {integrity: sha512-N5+hFTPHaZe9HhqJDxxxODfYuOmI6v+JIowzERcea/uxytN/JZlehVTcINBNp8wMo7l6ov1Jf5srrDbkI/WsJg==}
+    peerDependencies:
+      svelte: ^3 || ^4 || ^5.0.0-next.42
+
   magic-string@0.25.9:
     resolution: {integrity: sha512-RmF0AsMzgt25qzqqLc1+MbHmhdx0ojF2Fvs4XnOqz2ZOBXzzkEwc/dJQZCYHAn7v1jbVOjAZfK8msRn4BxO4VQ==}
 
@@ -2009,6 +2020,11 @@ packages:
 
   package-json-from-dist@1.0.1:
     resolution: {integrity: sha512-UEZIS3/by4OC8vL3P2dTXRETpebLI2NiI5vIrjaD/5UtrkFX/tNbwjTSRAGC/+7CAo2pIcBaRgWmcBBHcsaCIw==}
+
+  paneforge@1.0.0-next.3:
+    resolution: {integrity: sha512-he/IlhHhugS8L0MLNEjzdY8EuKio5vu2FOzkzonQv8jgfRuukAMaDkEMXWhgkTgfqV++kE2adc353NG8wsnH5w==}
+    peerDependencies:
+      svelte: ^5.11.0
 
   parent-module@1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
@@ -2376,6 +2392,12 @@ packages:
     resolution: {integrity: sha512-K3AmlySeFifF/cKgsYNv5uXqMVNln0NBAacOYgmkQStLa/UoU0LhfAACU6Gr+YYC8bOCHdVmFNoKuDbMEsppJg==}
     peerDependencies:
       svelte: ^3.0.0 || ^4.0.0 || ^5.0.0-next.1
+
+  svelte-toolbelt@0.4.6:
+    resolution: {integrity: sha512-k8OUvXBUifHZcAlWeY/HLg/4J0v5m2iOfOhn8fDmjt4AP8ZluaDh9eBFus9lFiLX6O5l6vKqI1dKL5wy7090NQ==}
+    engines: {node: '>=18', pnpm: '>=8.7.0'}
+    peerDependencies:
+      svelte: ^5.0.0-next.126
 
   svelte-toolbelt@0.7.1:
     resolution: {integrity: sha512-HcBOcR17Vx9bjaOceUvxkY3nGmbBmCBBbuWLLEWO6jtmWH8f/QoWmbyUfQZrpDINH39en1b8mptfPQT9VKQ1xQ==}
@@ -4064,6 +4086,10 @@ snapshots:
 
   lru-cache@10.4.3: {}
 
+  lucide-svelte@0.475.0(svelte@5.20.0):
+    dependencies:
+      svelte: 5.20.0
+
   magic-string@0.25.9:
     dependencies:
       sourcemap-codec: 1.4.8
@@ -4177,6 +4203,11 @@ snapshots:
       p-limit: 3.1.0
 
   package-json-from-dist@1.0.1: {}
+
+  paneforge@1.0.0-next.3(svelte@5.20.0):
+    dependencies:
+      svelte: 5.20.0
+      svelte-toolbelt: 0.4.6(svelte@5.20.0)
 
   parent-module@1.0.1:
     dependencies:
@@ -4503,6 +4534,12 @@ snapshots:
 
   svelte-sonner@0.3.28(svelte@5.20.0):
     dependencies:
+      svelte: 5.20.0
+
+  svelte-toolbelt@0.4.6(svelte@5.20.0):
+    dependencies:
+      clsx: 2.1.1
+      style-to-object: 1.0.8
       svelte: 5.20.0
 
   svelte-toolbelt@0.7.1(svelte@5.20.0):
