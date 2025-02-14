@@ -8,12 +8,12 @@
 
 	import { ModeWatcher, toggleMode } from 'mode-watcher';
 	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
-	import * as AlertDialog from "$lib/components/ui/alert-dialog/index.js";
+	import * as AlertDialog from '$lib/components/ui/alert-dialog/index.js';
 	import '../app.css';
 	import { toast } from 'svelte-sonner';
 	let { children } = $props();
 
-	let open = $state(false)
+	let open = $state(false);
 </script>
 
 <Toaster position="top-right" />
@@ -38,22 +38,21 @@
 		</div>
 	</div>
 	<div class="grid h-full w-full max-w-7xl grid-flow-col grid-cols-12">
-		<div class="col-span-2 flex justify-between flex-col items-center mx-6 mt-8 mb-24">
+		<div class="col-span-2 mx-6 mb-24 mt-8 flex flex-col items-center justify-between">
 			<div class="flex flex-col gap-2">
-				<Button variant='ghost' class='bg-gray-50 text-black' href='/'>
-					<Activity/> <span>Monitors</span>
+				<Button variant="ghost" class="bg-gray-50 text-black" href="/">
+					<Activity /> <span>Monitors</span>
 				</Button>
-				
-				<Button variant='ghost' class='bg-gray-50 text-black' href='/'>
-					<Settings/> <span>Settings</span>
+
+				<Button variant="ghost" class="bg-gray-50 text-black" href="/">
+					<Settings /> <span>Settings</span>
 				</Button>
 			</div>
 			<div>
-				<Button variant='destructive' onclick={() => open = true}>
-					<Logout class='text-black dark:text-white'/> <span>Logout</span>
+				<Button variant="destructive" onclick={() => (open = true)}>
+					<Logout class="text-black dark:text-white" /> <span>Logout</span>
 				</Button>
 			</div>
-			
 		</div>
 		<div class="col-span-10 border-l border-black dark:border-gray-500">
 			<div class="m-6">
@@ -63,22 +62,22 @@
 	</div>
 </div>
 
-
 <!-- This will take care of the logout part -->
 <AlertDialog.Root bind:open>
 	<AlertDialog.Content>
-	  <AlertDialog.Header>
-		<AlertDialog.Title>Are you absolutely sure?</AlertDialog.Title>
-		<AlertDialog.Description>
-		  This Action will Log You of out your account.
-		</AlertDialog.Description>
-	  </AlertDialog.Header>
-	  <AlertDialog.Footer>
-		<AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
-		<AlertDialog.Action class={buttonVariants({ variant: "destructive" })} onclick={() => [
-			open = !open,
-			toast.error("We will logyou out...")
-		]}>Confim</AlertDialog.Action>
-	  </AlertDialog.Footer>
+		<AlertDialog.Header>
+			<AlertDialog.Title>Are you absolutely sure?</AlertDialog.Title>
+			<AlertDialog.Description>
+				This Action will Log You of out your account.
+			</AlertDialog.Description>
+		</AlertDialog.Header>
+		<AlertDialog.Footer>
+			<AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
+			<AlertDialog.Action
+				class={buttonVariants({ variant: 'destructive' })}
+				onclick={() => [(open = !open), toast.error('We will logyou out...')]}
+				>Confim</AlertDialog.Action
+			>
+		</AlertDialog.Footer>
 	</AlertDialog.Content>
-  </AlertDialog.Root>
+</AlertDialog.Root>
