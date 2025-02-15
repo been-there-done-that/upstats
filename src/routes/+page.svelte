@@ -55,7 +55,7 @@
 </script>
 
 <h1 class="text-2xl font-extrabold italic">Monitors</h1>
-<h2 class="text-lg font-medium italic my-3">Overview of all your monitors.</h2>
+<h2 class="my-3 text-lg font-medium italic">Overview of all your monitors.</h2>
 {#snippet Beats(invoice: any)}
 	<div class="flex h-6 flex-row-reverse gap-1.5">
 		{#each { length: BEATS_ITEMS } as _, idx}
@@ -112,12 +112,16 @@
 						>{invoice.name}</Table.Cell
 					>
 					<Table.Cell
-						class=" -p-2 px-2 w-[30%] text-start text-gray-500 group-hover:text-black dark:text-white"
-						>
-						<a href={invoice.url} target="_blank" class="text-purple-600 hover:underline font-semibold flex items-center gap-2"> <span>{invoice.url}</span> <ExternalLink size={14}/></a>
-						
-						</Table.Cell
+						class=" -p-2 w-[30%] px-2 text-start text-gray-500 group-hover:text-black dark:text-white"
 					>
+						<a
+							href={invoice.url}
+							target="_blank"
+							class="flex items-center gap-2 font-semibold text-purple-600 hover:underline"
+						>
+							<span>{invoice.url}</span> <ExternalLink size={14} /></a
+						>
+					</Table.Cell>
 					<Table.Cell
 						class="grid  w-full place-items-center text-gray-500 group-hover:text-black dark:text-white"
 					>
