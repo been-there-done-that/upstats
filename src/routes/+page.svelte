@@ -29,11 +29,11 @@
 
 {open}
 {JSON.stringify(selectedRowForDelete)}
-<div class="my-8 rounded-lg border text-gray-500 shadow-md hover:text-black dark:text-white w-full">
+<div class="my-8 w-full rounded-lg border text-gray-500 shadow-md hover:text-black dark:text-white">
 	<Table.Root>
 		<Table.Header>
 			<Table.Row>
-				<Table.Head class="text-left pl-5 italic text-black">Name</Table.Head>
+				<Table.Head class="pl-5 text-left italic text-black">Name</Table.Head>
 				<Table.Head class="text-center italic text-black">URL</Table.Head>
 				<Table.Head class="text-center italic text-black">Beats</Table.Head>
 				<Table.Head class="w-24 text-center italic text-black">Frequency</Table.Head>
@@ -43,16 +43,20 @@
 		<Table.Body>
 			{#each invoices as invoice, i (i)}
 				<Table.Row class="group">
-					<Table.Cell class="text-left pl-5 text-gray-500 group-hover:text-black border dark:text-white"
+					<Table.Cell
+						class="border pl-5 text-left text-gray-500 group-hover:text-black dark:text-white"
 						>{invoice.name}</Table.Cell
 					>
-					<Table.Cell class="-p-2 text-center text-gray-500 group-hover:text-black border dark:text-white"
+					<Table.Cell
+						class="-p-2 border text-center text-gray-500 group-hover:text-black dark:text-white"
 						>{invoice.url}</Table.Cell
 					>
-					<Table.Cell class="-p-2 text-center text-gray-500 group-hover:text-black border dark:text-white"
+					<Table.Cell
+						class="-p-2 border text-center text-gray-500 group-hover:text-black dark:text-white"
 						>{invoice.frequency}</Table.Cell
 					>
-					<Table.Cell class="-p-2 text-center text-gray-500 group-hover:text-black border dark:text-white"
+					<Table.Cell
+						class="-p-2 border text-center text-gray-500 group-hover:text-black dark:text-white"
 						>{invoice.totalAmount}</Table.Cell
 					>
 					<Table.Cell class="-p-2 text-center text-black dark:text-white">

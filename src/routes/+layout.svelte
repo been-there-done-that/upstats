@@ -5,14 +5,14 @@
 	import Logout from 'lucide-svelte/icons/log-out';
 	import Activity from 'lucide-svelte/icons/activity';
 	import Settings from 'lucide-svelte/icons/settings';
-	import Calculator from "lucide-svelte/icons/calculator";
-	import Calendar from "lucide-svelte/icons/calendar";
-	import CreditCard from "lucide-svelte/icons/credit-card";
-	import Smile from "lucide-svelte/icons/smile";
-	import User from "lucide-svelte/icons/user";
-	
-	import { onMount } from "svelte";
-	import * as Command from "$lib/components/ui/command/index.js";
+	import Calculator from 'lucide-svelte/icons/calculator';
+	import Calendar from 'lucide-svelte/icons/calendar';
+	import CreditCard from 'lucide-svelte/icons/credit-card';
+	import Smile from 'lucide-svelte/icons/smile';
+	import User from 'lucide-svelte/icons/user';
+
+	import { onMount } from 'svelte';
+	import * as Command from '$lib/components/ui/command/index.js';
 
 	import { ModeWatcher, toggleMode } from 'mode-watcher';
 	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
@@ -25,19 +25,18 @@
 	let open = $state(false);
 
 	onMount(() => {
-    function handleKeydown(e: KeyboardEvent) {
-      if (e.key === "j" && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        open = !open;
-      }
-    }
- 
-    document.addEventListener("keydown", handleKeydown);
-    return () => {
-      document.removeEventListener("keydown", handleKeydown);
-    };
-  });
-  
+		function handleKeydown(e: KeyboardEvent) {
+			if (e.key === 'j' && (e.metaKey || e.ctrlKey)) {
+				e.preventDefault();
+				open = !open;
+			}
+		}
+
+		document.addEventListener('keydown', handleKeydown);
+		return () => {
+			document.removeEventListener('keydown', handleKeydown);
+		};
+	});
 </script>
 
 <Toaster position="top-right" />
@@ -48,17 +47,16 @@
 		class="flex w-full max-w-7xl items-center justify-end border-b border-black px-6 dark:border-gray-500"
 	>
 		<div class="my-3 flex w-full items-center justify-between">
-			<h2 class="lg:text-2xl md:text-xl font-extrabold italic">UpStats ᯓ★</h2>
+			<h2 class="font-extrabold italic md:text-xl lg:text-2xl">UpStats ᯓ★</h2>
 
-
-<p class="text-muted-foreground text-sm">
-	Press
-	<kbd
-	  class="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100"
-	>
-	  <span class="text-xs">⌘</span>J
-	</kbd>
-  </p>
+			<p class="text-sm text-muted-foreground">
+				Press
+				<kbd
+					class="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100"
+				>
+					<span class="text-xs">⌘</span>J
+				</kbd>
+			</p>
 			<Button onclick={toggleMode} variant="outline" size="icon">
 				<Sun
 					class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
@@ -71,7 +69,7 @@
 		</div>
 	</div>
 	<div class="grid h-full w-full max-w-7xl grid-flow-col grid-cols-12">
-		<div class="lg:col-span-2 mx-6 mb-24 mt-8 lg:flex flex-col items-center justify-between hidden">
+		<div class="mx-6 mb-24 mt-8 hidden flex-col items-center justify-between lg:col-span-2 lg:flex">
 			<div class="flex flex-col gap-2">
 				<Button variant="ghost" class="bg-gray-50 text-black" href="/">
 					<Activity /> <span>Monitors</span>
@@ -87,8 +85,8 @@
 				</Button>
 			</div>
 		</div>
-		<div class="lg:col-span-10 border-l border-black dark:border-gray-500 col-span-full">
-			<div class="lg:m-6 m-3">
+		<div class="col-span-full border-l border-black dark:border-gray-500 lg:col-span-10">
+			<div class="m-3 lg:m-6">
 				{@render children()}
 			</div>
 		</div>
@@ -115,42 +113,41 @@
 	</AlertDialog.Content>
 </AlertDialog.Root>
 
-
-  <Command.Dialog bind:open>
+<Command.Dialog bind:open>
 	<Command.Input placeholder="Type a command or search..." />
 	<Command.List>
-	  <Command.Empty>No results found.</Command.Empty>
-	  <Command.Group heading="Suggestions">
-		<Command.Item>
-		  <Calendar />
-		  <span>Calendar</span>
-		</Command.Item>
-		<Command.Item>
-		  <Smile />
-		  <span>Search Emoji</span>
-		</Command.Item>
-		<Command.Item>
-		  <Calculator />
-		  <span>Calculator</span>
-		</Command.Item>
-	  </Command.Group>
-	  <Command.Separator />
-	  <Command.Group heading="Settings">
-		<Command.Item>
-		  <User />
-		  <span>Profile</span>
-		  <Command.Shortcut>⌘P</Command.Shortcut>
-		</Command.Item>
-		<Command.Item>
-		  <CreditCard />
-		  <span>Billing</span>
-		  <Command.Shortcut>⌘B</Command.Shortcut>
-		</Command.Item>
-		<Command.Item>
-		  <Settings />
-		  <span>Settings</span>
-		  <Command.Shortcut>⌘S</Command.Shortcut>
-		</Command.Item>
-	  </Command.Group>
+		<Command.Empty>No results found.</Command.Empty>
+		<Command.Group heading="Suggestions">
+			<Command.Item>
+				<Calendar />
+				<span>Calendar</span>
+			</Command.Item>
+			<Command.Item>
+				<Smile />
+				<span>Search Emoji</span>
+			</Command.Item>
+			<Command.Item>
+				<Calculator />
+				<span>Calculator</span>
+			</Command.Item>
+		</Command.Group>
+		<Command.Separator />
+		<Command.Group heading="Settings">
+			<Command.Item>
+				<User />
+				<span>Profile</span>
+				<Command.Shortcut>⌘P</Command.Shortcut>
+			</Command.Item>
+			<Command.Item>
+				<CreditCard />
+				<span>Billing</span>
+				<Command.Shortcut>⌘B</Command.Shortcut>
+			</Command.Item>
+			<Command.Item>
+				<Settings />
+				<span>Settings</span>
+				<Command.Shortcut>⌘S</Command.Shortcut>
+			</Command.Item>
+		</Command.Group>
 	</Command.List>
-  </Command.Dialog>
+</Command.Dialog>
