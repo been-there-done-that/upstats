@@ -19,18 +19,18 @@
 
 	const invoices = [
 		{
-			name: 'http://google.com',
+			id: '121212',
+			name: 'Google',
 			url: 'http://google.com',
 			beats: [
+				{ id: '1', date: '2025-02-15T10:27:01Z', status_code: 400 },
 				{
-					date: '2025-02-15T10:27:01Z',
-					status_code: 400
-				},
-				{
+					id: '2',
 					date: '2025-02-15T10:28:01Z',
 					status_code: 200
 				},
 				{
+					id: '3',
 					date: '2025-02-15T10:29:01Z',
 					status_code: 200
 				}
@@ -55,16 +55,16 @@
 
 <h1 class="text-2xl font-extrabold italic">Monitors</h1>
 
-<div class="m-20">
-	<div class="flex flex-row-reverse gap-1.5">
+{#snippet Beats(invoice: any)}
+	<div class="flex h-6 flex-row-reverse gap-1.5">
 		{#each { length: BEATS_ITEMS } as _, idx}
-			{@const value = invoices[0].beats[idx]}
+			{@const value = invoice.beats[idx]}
 			<Tooltip.Provider>
 				<Tooltip.Root>
 					<Tooltip.Trigger
 						><div
 							class={cn(
-								'h-8 w-1.5 rounded-md',
+								'h-full w-1.5 rounded-md',
 								BEATS_COLOR_MAPPING[value?.status_code] ?? 'bg-black/10 dark:bg-white/20'
 							)}
 						></div></Tooltip.Trigger
@@ -85,36 +85,47 @@
 			</Tooltip.Provider>
 		{/each}
 	</div>
-</div>
+{/snippet}
 
 <div class="my-8 w-full rounded-lg border text-gray-500 shadow-md hover:text-black dark:text-white">
 	<Table.Root>
 		<Table.Header>
 			<Table.Row>
-				<Table.Head class="pl-5 text-left italic text-black dark:text-white">Name</Table.Head>
-				<Table.Head class="text-center italic text-black dark:text-white">URL</Table.Head>
-				<Table.Head class="text-center italic text-black dark:text-white">Beats</Table.Head>
-				<Table.Head class="w-24 text-center italic text-black dark:text-white">Frequency</Table.Head
+				<Table.Head class="w-[30%] pl-5 text-left italic text-black dark:text-white"
+					>Name</Table.Head
 				>
-				<Table.Head class="w-24 text-center italic text-black dark:text-white">Action</Table.Head>
+				<Table.Head class="w-[30%] text-start italic text-black dark:text-white">URL</Table.Head>
+				<Table.Head class="w-[20%] text-center italic text-black dark:text-white">Beats</Table.Head>
+				<Table.Head class="w-[10%] text-center italic text-black dark:text-white"
+					>Frequency</Table.Head
+				>
+				<Table.Head class="w-[10%] text-center italic text-black dark:text-white">Action</Table.Head
+				>
 			</Table.Row>
 		</Table.Header>
 		<Table.Body>
 			{#each invoices as invoice, i (i)}
 				<Table.Row class="group">
-					<Table.Cell class="pl-5 text-left text-gray-500 group-hover:text-black dark:text-white"
+					<Table.Cell
+						class=" w-[30%] pl-5 text-left text-gray-500 group-hover:text-black dark:text-white"
 						>{invoice.name}</Table.Cell
 					>
-					<Table.Cell class="-p-2 text-center text-gray-500 group-hover:text-black dark:text-white"
+					<Table.Cell
+						class=" -p-2 w-[30%] text-start text-gray-500 group-hover:text-black dark:text-white"
 						>{invoice.url}</Table.Cell
 					>
-					<Table.Cell class="-p-2 text-center text-gray-500 group-hover:text-black dark:text-white"
-						>{invoice.beats}</Table.Cell
+					<Table.Cell
+						class="grid  w-full place-items-center text-gray-500 group-hover:text-black dark:text-white"
 					>
-					<Table.Cell class="-p-2 text-center text-gray-500 group-hover:text-black dark:text-white"
+						<div>
+							{@render Beats(invoice)}
+						</div>
+					</Table.Cell>
+					<Table.Cell
+						class=" -p-2 w-[10%] text-center text-gray-500 group-hover:text-black dark:text-white"
 						>{invoice.frequency}</Table.Cell
 					>
-					<Table.Cell class="-p-2 text-center text-black dark:text-white">
+					<Table.Cell class=" -p-2 w-[10%] text-center text-black dark:text-white">
 						<DropdownMenu.Root>
 							<DropdownMenu.Trigger class={buttonVariants({ variant: 'ghost', size: 'icon' })}
 								><Ellipsis /></DropdownMenu.Trigger
