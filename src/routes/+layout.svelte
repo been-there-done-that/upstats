@@ -5,6 +5,14 @@
 	import Logout from 'lucide-svelte/icons/log-out';
 	import Activity from 'lucide-svelte/icons/activity';
 	import Settings from 'lucide-svelte/icons/settings';
+	import Calculator from "lucide-svelte/icons/calculator";
+	import Calendar from "lucide-svelte/icons/calendar";
+	import CreditCard from "lucide-svelte/icons/credit-card";
+	import Smile from "lucide-svelte/icons/smile";
+	import User from "lucide-svelte/icons/user";
+	
+	import { onMount } from "svelte";
+	import * as Command from "$lib/components/ui/command/index.js";
 
 	import { ModeWatcher, toggleMode } from 'mode-watcher';
 	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
@@ -13,7 +21,23 @@
 	import { toast } from 'svelte-sonner';
 	let { children } = $props();
 
+	let logoutOpen = $state(false);
 	let open = $state(false);
+
+	onMount(() => {
+    function handleKeydown(e: KeyboardEvent) {
+      if (e.key === "j" && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        open = !open;
+      }
+    }
+ 
+    document.addEventListener("keydown", handleKeydown);
+    return () => {
+      document.removeEventListener("keydown", handleKeydown);
+    };
+  });
+  
 </script>
 
 <Toaster position="top-right" />
@@ -26,6 +50,15 @@
 		<div class="my-3 flex w-full items-center justify-between">
 			<h2 class="lg:text-2xl md:text-xl font-extrabold italic">UpStats ᯓ★</h2>
 
+
+<p class="text-muted-foreground text-sm">
+	Press
+	<kbd
+	  class="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100"
+	>
+	  <span class="text-xs">⌘</span>J
+	</kbd>
+  </p>
 			<Button onclick={toggleMode} variant="outline" size="icon">
 				<Sun
 					class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
@@ -49,7 +82,7 @@
 				</Button>
 			</div>
 			<div>
-				<Button variant="destructive" onclick={() => (open = true)}>
+				<Button variant="destructive" onclick={() => (logoutOpen = true)}>
 					<Logout class="text-black dark:text-white" /> <span>Logout</span>
 				</Button>
 			</div>
@@ -63,7 +96,7 @@
 </div>
 
 <!-- This will take care of the logout part -->
-<AlertDialog.Root bind:open>
+<AlertDialog.Root bind:open={logoutOpen}>
 	<AlertDialog.Content>
 		<AlertDialog.Header>
 			<AlertDialog.Title>Are you absolutely sure?</AlertDialog.Title>
@@ -75,9 +108,49 @@
 			<AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
 			<AlertDialog.Action
 				class={buttonVariants({ variant: 'destructive' })}
-				onclick={() => [(open = !open), toast.error('We will logyou out...')]}
+				onclick={() => [(logoutOpen = !logoutOpen), toast.error('We will logyou out...')]}
 				>Confim</AlertDialog.Action
 			>
 		</AlertDialog.Footer>
 	</AlertDialog.Content>
 </AlertDialog.Root>
+
+
+  <Command.Dialog bind:open>
+	<Command.Input placeholder="Type a command or search..." />
+	<Command.List>
+	  <Command.Empty>No results found.</Command.Empty>
+	  <Command.Group heading="Suggestions">
+		<Command.Item>
+		  <Calendar />
+		  <span>Calendar</span>
+		</Command.Item>
+		<Command.Item>
+		  <Smile />
+		  <span>Search Emoji</span>
+		</Command.Item>
+		<Command.Item>
+		  <Calculator />
+		  <span>Calculator</span>
+		</Command.Item>
+	  </Command.Group>
+	  <Command.Separator />
+	  <Command.Group heading="Settings">
+		<Command.Item>
+		  <User />
+		  <span>Profile</span>
+		  <Command.Shortcut>⌘P</Command.Shortcut>
+		</Command.Item>
+		<Command.Item>
+		  <CreditCard />
+		  <span>Billing</span>
+		  <Command.Shortcut>⌘B</Command.Shortcut>
+		</Command.Item>
+		<Command.Item>
+		  <Settings />
+		  <span>Settings</span>
+		  <Command.Shortcut>⌘S</Command.Shortcut>
+		</Command.Item>
+	  </Command.Group>
+	</Command.List>
+  </Command.Dialog>
