@@ -24,6 +24,7 @@
 			id: '121212',
 			name: 'Google',
 			url: 'http://google.com',
+			status: 'PAUSED',
 			beats: [
 				{ id: '1', date: '2025-02-15T10:27:01Z', status_code: 400 },
 				{
@@ -110,7 +111,7 @@
 				<Table.Row class="group">
 					<Table.Cell
 						class=" w-[30%] pl-5 text-left text-gray-500 group-hover:text-black dark:text-white"
-						onclick={async() => await goto(`/minitors/${invoice.id}`)}
+						onclick={async() => await goto(`/monitors/${invoice.id}`)}
 						>
 						{invoice.name}
 						</Table.Cell

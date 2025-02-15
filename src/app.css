@@ -78,3 +78,8 @@
 		@apply bg-background text-foreground;
 	}
 }
+
+
+.ping {
+	@apply absolute w-5 h-5 rounded-full animate-[ping_1.5s_linear_infinite];
+}

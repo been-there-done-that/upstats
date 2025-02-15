@@ -4,7 +4,7 @@
 	import Moon from 'lucide-svelte/icons/moon';
 	import Logout from 'lucide-svelte/icons/log-out';
 	import Activity from 'lucide-svelte/icons/activity';
-	import Settings from 'lucide-svelte/icons/settings';
+	import Cog from 'lucide-svelte/icons/cog';
 	import Calculator from 'lucide-svelte/icons/calculator';
 	import Calendar from 'lucide-svelte/icons/calendar';
 	import CreditCard from 'lucide-svelte/icons/credit-card';
@@ -47,7 +47,7 @@
 		class="flex w-full max-w-7xl items-center justify-end border-b border-black px-6 dark:border-gray-500"
 	>
 		<div class="my-3 flex w-full items-center justify-between">
-			<h2 class="font-extrabold italic md:text-xl lg:text-2xl">UpStats ᯓ★</h2>
+			<a class="font-extrabold italic md:text-xl lg:text-2xl" href="/">UpStats ᯓ★</a>
 
 			<p class="text-sm text-muted-foreground">
 				Press
@@ -76,7 +76,7 @@
 				</Button>
 
 				<Button variant="ghost" class="bg-gray-50 text-black" href="/">
-					<Settings /> <span>Settings</span>
+					<Cog /> <span>Settings</span>
 				</Button>
 			</div>
 			<div>
@@ -144,7 +144,7 @@
 				<Command.Shortcut>⌘B</Command.Shortcut>
 			</Command.Item>
 			<Command.Item>
-				<Settings />
+				<Cog />
 				<span>Settings</span>
 				<Command.Shortcut>⌘S</Command.Shortcut>
 			</Command.Item>
