@@ -17,46 +17,10 @@
 
 	const invoices = [
 		{
-			invoice: 'INV001',
-			paymentStatus: 'Paid',
+			name: 'http://google.com',
+			url: 'http://google.com',
 			totalAmount: '$250.00',
-			paymentMethod: 'Credit Card'
-		},
-		{
-			invoice: 'INV002',
-			paymentStatus: 'Pending',
-			totalAmount: '$150.00',
-			paymentMethod: 'PayPal'
-		},
-		{
-			invoice: 'INV003',
-			paymentStatus: 'Unpaid',
-			totalAmount: '$350.00',
-			paymentMethod: 'Bank Transfer'
-		},
-		{
-			invoice: 'INV004',
-			paymentStatus: 'Paid',
-			totalAmount: '$450.00',
-			paymentMethod: 'Credit Card'
-		},
-		{
-			invoice: 'INV005',
-			paymentStatus: 'Paid',
-			totalAmount: '$550.00',
-			paymentMethod: 'PayPal'
-		},
-		{
-			invoice: 'INV006',
-			paymentStatus: 'Pending',
-			totalAmount: '$200.00',
-			paymentMethod: 'Bank Transfer'
-		},
-		{
-			invoice: 'INV007',
-			paymentStatus: 'Unpaid',
-			totalAmount: '$300.00',
-			paymentMethod: 'Credit Card'
+			frequency: '5 Min'
 		}
 	];
 </script>
@@ -65,11 +29,11 @@
 
 {open}
 {JSON.stringify(selectedRowForDelete)}
-<div class="my-8 rounded-lg border text-gray-500 shadow-md hover:text-black dark:text-white">
+<div class="my-8 rounded-lg border text-gray-500 shadow-md hover:text-black dark:text-white w-full">
 	<Table.Root>
 		<Table.Header>
 			<Table.Row>
-				<Table.Head class="text-center italic text-black">Name</Table.Head>
+				<Table.Head class="text-left pl-5 italic text-black">Name</Table.Head>
 				<Table.Head class="text-center italic text-black">URL</Table.Head>
 				<Table.Head class="text-center italic text-black">Beats</Table.Head>
 				<Table.Head class="w-24 text-center italic text-black">Frequency</Table.Head>
@@ -79,16 +43,16 @@
 		<Table.Body>
 			{#each invoices as invoice, i (i)}
 				<Table.Row class="group">
-					<Table.Cell class="-p-2 text-center text-gray-500 group-hover:text-black dark:text-white"
-						>{invoice.invoice}</Table.Cell
+					<Table.Cell class="text-left pl-5 text-gray-500 group-hover:text-black border dark:text-white"
+						>{invoice.name}</Table.Cell
 					>
-					<Table.Cell class="-p-2 text-center text-gray-500 group-hover:text-black dark:text-white"
-						>{invoice.paymentStatus}</Table.Cell
+					<Table.Cell class="-p-2 text-center text-gray-500 group-hover:text-black border dark:text-white"
+						>{invoice.url}</Table.Cell
 					>
-					<Table.Cell class="-p-2 text-center text-gray-500 group-hover:text-black dark:text-white"
-						>{invoice.paymentMethod}</Table.Cell
+					<Table.Cell class="-p-2 text-center text-gray-500 group-hover:text-black border dark:text-white"
+						>{invoice.frequency}</Table.Cell
 					>
-					<Table.Cell class="-p-2 text-center text-gray-500 group-hover:text-black dark:text-white"
+					<Table.Cell class="-p-2 text-center text-gray-500 group-hover:text-black border dark:text-white"
 						>{invoice.totalAmount}</Table.Cell
 					>
 					<Table.Cell class="-p-2 text-center text-black dark:text-white">
@@ -104,8 +68,8 @@
 									<DropdownMenu.Separator />
 									<DropdownMenu.Item class="flex items-center justify-center">
 										<Button
-											variant="destructive"
-											class="h-8 w-full"
+											variant="ghost"
+											class="h-5 w-full"
 											onclick={() => (selectedRowForDelete = invoice)}
 										>
 											Delete

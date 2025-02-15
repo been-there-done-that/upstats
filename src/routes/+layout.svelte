@@ -24,7 +24,7 @@
 		class="flex w-full max-w-7xl items-center justify-end border-b border-black px-6 dark:border-gray-500"
 	>
 		<div class="my-3 flex w-full items-center justify-between">
-			<h2 class="text-2xl font-extrabold italic">UpStats ᯓ★</h2>
+			<h2 class="lg:text-2xl md:text-xl font-extrabold italic">UpStats ᯓ★</h2>
 
 			<Button onclick={toggleMode} variant="outline" size="icon">
 				<Sun
@@ -38,7 +38,7 @@
 		</div>
 	</div>
 	<div class="grid h-full w-full max-w-7xl grid-flow-col grid-cols-12">
-		<div class="col-span-2 mx-6 mb-24 mt-8 flex flex-col items-center justify-between">
+		<div class="lg:col-span-2 mx-6 mb-24 mt-8 lg:flex flex-col items-center justify-between hidden">
 			<div class="flex flex-col gap-2">
 				<Button variant="ghost" class="bg-gray-50 text-black" href="/">
 					<Activity /> <span>Monitors</span>
@@ -54,8 +54,8 @@
 				</Button>
 			</div>
 		</div>
-		<div class="col-span-10 border-l border-black dark:border-gray-500">
-			<div class="m-6">
+		<div class="lg:col-span-10 border-l border-black dark:border-gray-500 col-span-full">
+			<div class="lg:m-6 m-3">
 				{@render children()}
 			</div>
 		</div>
