@@ -53,6 +53,7 @@
 	},
 	"dependencies": {
 		"@libsql/client": "^0.14.0",
+		"apexcharts": "^4.4.0",
 		"drizzle-orm": "^0.38.4"
 	}
 }

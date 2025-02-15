@@ -7,6 +7,150 @@
 	import { goto } from '$app/navigation';
 	import ExternalLink from 'lucide-svelte/icons/external-link';
 	import { toast } from 'svelte-sonner';
+	import { onMount, onDestroy } from 'svelte';
+	import { browser } from '$app/environment';
+
+	let chart: any;
+
+	var optionsLineold = {
+		chart: {
+			height: 320,
+			type: 'line',
+			zoom: {
+				enabled: false
+			},
+			dropShadow: {
+				enabled: true,
+				top: 3,
+				left: 2,
+				blur: 4,
+				opacity: 1
+			}
+		},
+		stroke: {
+			curve: 'smooth',
+			width: 2
+		},
+		// Uncomment and use your custom color if needed
+		colors: ['#000000'],
+		series: [
+			{
+				name: 'Music', // Only one series item
+				data: [1, 15, 26, 20, 33, 27]
+			}
+		],
+		markers: {
+			size: 4,
+			strokeWidth: 0,
+			hover: {
+				size: 6
+			}
+		},
+		grid: {
+			show: true,
+			xaxis: {
+				lines: {
+					show: true
+				}
+			},
+			yaxis: {
+				lines: {
+					show: true
+				}
+			},
+			padding: {
+				bottom: 0
+			}
+		},
+		labels: ['01/15/2002', '01/16/2002', '01/17/2002', '01/18/2002', '01/19/2002', '01/20/2002'],
+		xaxis: {
+			tooltip: {
+				enabled: true
+			}
+		}
+	};
+
+	var optionsLine = {
+		chart: {
+			height: 320,
+			type: 'line',
+			zoom: {
+				enabled: false
+			},
+			dropShadow: {
+				enabled: true,
+				top: 3,
+				left: 2,
+				blur: 4,
+				opacity: 1
+			}
+		},
+		stroke: {
+			curve: 'smooth',
+			width: 2
+		},
+		colors: ['#000000'], // Custom color
+		series: [
+			{
+				name: 'Time Taken (ms)',
+				data: [
+					{ x: new Date('2024-02-10T10:00:00').getTime(), y: 150 },
+					{ x: new Date('2024-02-10T10:05:00').getTime(), y: 180 },
+					{ x: new Date('2024-02-10T10:10:00').getTime(), y: 120 },
+					{ x: new Date('2024-02-10T10:15:00').getTime(), y: 200 },
+					{ x: new Date('2024-02-10T10:20:00').getTime(), y: 170 }
+				]
+			}
+		],
+		markers: {
+			size: 4,
+			strokeWidth: 0,
+			hover: {
+				size: 6
+			}
+		},
+		grid: {
+			show: true,
+			xaxis: {
+				lines: {
+					show: true
+				}
+			},
+			yaxis: {
+				lines: {
+					show: true
+				}
+			},
+			padding: {
+				bottom: 0
+			}
+		},
+		xaxis: {
+			type: 'datetime',
+			tooltip: {
+				enabled: true
+			}
+		},
+		yaxis: {
+			title: {
+				text: 'Time (ms)'
+			}
+		}
+	};
+
+	onMount(async () => {
+		if (browser) {
+			const ApexCharts = (await import('apexcharts')).default;
+			const chartElement = document.getElementById('chart');
+			chart = new ApexCharts(chartElement, optionsLine);
+			await chart.render();
+		}
+	});
+
+	// Cleanup on destroy
+	onDestroy(() => {
+		if (chart) chart.destroy();
+	});
 
 	let { data }: PageProps = $props();
 
@@ -119,3 +263,11 @@
 		</div>
 	</div>
 </div>
+
+<div id="chart"></div>
+
+<style global>
+	:global(.apexcharts-tooltip-marker[shape='circle']::before) {
+		content: '>' !important; /* Remove the dot */
+	}
+</style>
