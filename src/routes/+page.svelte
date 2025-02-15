@@ -111,11 +111,10 @@
 				<Table.Row class="group">
 					<Table.Cell
 						class=" w-[30%] pl-5 text-left text-gray-500 group-hover:text-black dark:text-white"
-						onclick={async() => await goto(`/monitors/${invoice.id}`)}
-						>
-						{invoice.name}
-						</Table.Cell
+						onclick={async () => await goto(`/monitors/${invoice.id}`)}
 					>
+						{invoice.name}
+					</Table.Cell>
 					<Table.Cell
 						class=" -p-2 w-[30%] px-2 text-start text-gray-500 group-hover:text-black dark:text-white"
 					>

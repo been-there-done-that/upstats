@@ -1,7 +1,7 @@
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = ({ params }) => {
-    console.log({params})
+	console.log({ params });
 	return {
 		id: '121212',
 		name: 'Google',
@@ -22,5 +22,5 @@ export const load: PageLoad = ({ params }) => {
 			}
 		],
 		frequency: '5 Minutes'
-	}
+	};
 };

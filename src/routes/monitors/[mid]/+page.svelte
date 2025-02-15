@@ -74,8 +74,10 @@
 	<div class="mx-12 flex flex-col gap-4">
 		<div class=" mx-1 my-6 flex flex-col gap-4">
 			<div class="my-2 flex flex-row items-end justify-end space-x-3">
-				<Button variant="outline" class="h-8"
-				onclick={() => toast.success("We will pause or un Pause")}
+				<Button
+					variant="outline"
+					class="h-8"
+					onclick={() => toast.success('We will pause or un Pause')}
 					><Pause />
 					{#if data.paused}
 						Unpause
@@ -83,25 +85,35 @@
 						Pause
 					{/if}
 				</Button>
-				<Button variant="outline" class="h-8" href={`/monitors/configure/${data.id}`}><Settings /> Configure</Button>
+				<Button variant="outline" class="h-8" href={`/monitors/configure/${data.id}`}
+					><Settings /> Configure</Button
+				>
 			</div>
 
 			<div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
-				<div class="col-span-1 h-28 rounded-lg border-gray-200/85 border shadow-md inline-flex flex-col justify-between items-center p-3 px-4">
+				<div
+					class="col-span-1 inline-flex h-28 flex-col items-center justify-between rounded-lg border border-gray-200/85 p-3 px-4 shadow-md"
+				>
 					<span class="text-base font-medium">Average Response (24 Hour)</span>
-					<span class="font-semibold text-xl">300 ms</span>
+					<span class="text-xl font-semibold">300 ms</span>
 				</div>
-				<div class="col-span-1 h-28 rounded-lg border-gray-200/85 border shadow-md inline-flex flex-col justify-between items-center p-3 px-4">
+				<div
+					class="col-span-1 inline-flex h-28 flex-col items-center justify-between rounded-lg border border-gray-200/85 p-3 px-4 shadow-md"
+				>
 					<span class="text-base font-medium">Uptime (24 Hours)</span>
-					<span class="font-semibold text-xl">100%</span>
+					<span class="text-xl font-semibold">100%</span>
 				</div>
-				<div class="col-span-1 h-28 rounded-lg border-gray-200/85 border shadow-md inline-flex flex-col justify-between items-center p-3 px-4">
+				<div
+					class="col-span-1 inline-flex h-28 flex-col items-center justify-between rounded-lg border border-gray-200/85 p-3 px-4 shadow-md"
+				>
 					<span class="text-base font-medium">Uptime (30 days)</span>
-					<span class="font-semibold text-xl">100%</span>
+					<span class="text-xl font-semibold">100%</span>
 				</div>
-				<div class="col-span-1 h-28 rounded-lg border-gray-200/85 border shadow-md inline-flex flex-col justify-between items-center p-3 px-4">
+				<div
+					class="col-span-1 inline-flex h-28 flex-col items-center justify-between rounded-lg border border-gray-200/85 p-3 px-4 shadow-md"
+				>
 					<span class="text-base font-medium">Cert Exp In</span>
-					<span class="font-semibold text-xl">64 Days</span>
+					<span class="text-xl font-semibold">64 Days</span>
 				</div>
 			</div>
 		</div>

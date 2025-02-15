@@ -79,7 +79,6 @@
 	}
 }
 
-
 .ping {
-	@apply absolute w-5 h-5 rounded-full animate-[ping_1.5s_linear_infinite];
+	@apply absolute h-5 w-5 animate-[ping_1.5s_linear_infinite] rounded-full;
 }
