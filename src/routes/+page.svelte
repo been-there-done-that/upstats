@@ -3,6 +3,7 @@
 	import { toast } from 'svelte-sonner';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import Ellipsis from 'lucide-svelte/icons/ellipsis';
+	import ExternalLink from 'lucide-svelte/icons/external-link';
 	import * as Table from '$lib/components/ui/table/index.js';
 	import * as AlertDialog from '$lib/components/ui/alert-dialog/index.js';
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
@@ -54,7 +55,7 @@
 </script>
 
 <h1 class="text-2xl font-extrabold italic">Monitors</h1>
-
+<h2 class="text-lg font-medium italic my-3">Overview of all your monitors.</h2>
 {#snippet Beats(invoice: any)}
 	<div class="flex h-6 flex-row-reverse gap-1.5">
 		{#each { length: BEATS_ITEMS } as _, idx}
@@ -95,7 +96,7 @@
 					>Name</Table.Head
 				>
 				<Table.Head class="w-[30%] text-start italic text-black dark:text-white">URL</Table.Head>
-				<Table.Head class="w-[20%] text-center italic text-black dark:text-white">Beats</Table.Head>
+				<Table.Head class="w-[20%] text-start italic text-black dark:text-white">Beats</Table.Head>
 				<Table.Head class="w-[10%] text-center italic text-black dark:text-white"
 					>Frequency</Table.Head
 				>
@@ -111,8 +112,11 @@
 						>{invoice.name}</Table.Cell
 					>
 					<Table.Cell
-						class=" -p-2 w-[30%] text-start text-gray-500 group-hover:text-black dark:text-white"
-						>{invoice.url}</Table.Cell
+						class=" -p-2 px-2 w-[30%] text-start text-gray-500 group-hover:text-black dark:text-white"
+						>
+						<a href={invoice.url} target="_blank" class="text-purple-600 hover:underline font-semibold flex items-center gap-2"> <span>{invoice.url}</span> <ExternalLink size={14}/></a>
+						
+						</Table.Cell
 					>
 					<Table.Cell
 						class="grid  w-full place-items-center text-gray-500 group-hover:text-black dark:text-white"
