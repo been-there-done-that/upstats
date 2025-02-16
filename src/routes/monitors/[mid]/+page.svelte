@@ -9,6 +9,7 @@
 	import { toast } from 'svelte-sonner';
 	import { onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/environment';
+	import { mode } from 'mode-watcher';
 
 	let chart: any;
 
@@ -32,7 +33,7 @@
 			curve: 'smooth',
 			width: 2
 		},
-		colors: ['#000000'], // Custom color
+		colors: [$mode == 'light' ? '#000000' : '#ffffff'], // Custom color
 		series: [
 			{
 				name: 'Time Taken (ms)',
@@ -91,6 +92,16 @@
 			}
 		}
 	};
+
+	$effect(() => {
+		// we need to check chart object exists or not as it is possible it might be empty before onmount happens
+		console.log({ chart });
+		if ($mode && chart) {
+			chart.updateOptions({
+				colors: [$mode === 'light' ? '#000000' : '#ffffff']
+			});
+		}
+	});
 
 	onMount(async () => {
 		if (browser) {
