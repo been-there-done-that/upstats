@@ -10,6 +10,7 @@
 	import CreditCard from 'lucide-svelte/icons/credit-card';
 	import Smile from 'lucide-svelte/icons/smile';
 	import User from 'lucide-svelte/icons/user';
+	import { afterNavigate, beforeNavigate } from '$app/navigation';
 
 	import { onMount } from 'svelte';
 	import * as Command from '$lib/components/ui/command/index.js';
@@ -37,7 +38,23 @@
 			document.removeEventListener('keydown', handleKeydown);
 		};
 	});
+
+	let loading = $state(false);
+
+	beforeNavigate(async () => {
+		loading = true;
+	});
+
+	afterNavigate(async () => {
+		loading = false;
+	});
 </script>
+
+{#if loading}
+	<div class="loading-wrapper">
+		<div class="loader"></div>
+	</div>
+{/if}
 
 <Toaster position="top-right" />
 <ModeWatcher />
@@ -151,3 +168,42 @@
 		</Command.Group>
 	</Command.List>
 </Command.Dialog>
+
+<style>
+	.loading-wrapper {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgb(82 78 78 / 80%);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 9999;
+	}
+
+	.loader {
+		width: fit-content;
+		font-weight: 800;
+		white-space: pre;
+		font-size: xxx-large;
+		color: black;
+		line-height: 1.2em;
+		height: 1.2em;
+		overflow: hidden;
+	}
+
+	.loader:before {
+		content: 'Loading...\A⌰oading...\A⌰⍜ading...\A⌰⍜⏃ding...\A⌰⍜⏃⎅ing...\A⌰⍜⏃⎅⟟ng...\A⌰⍜⏃⎅⟟⋏g...\A⌰⍜⏃⎅⟟⋏☌...\A⌰⍜⏃⎅⟟⋏☌⟒..\A⌰⍜⏃⎅⟟⋏☌⟒⏁.\A⌰⍜⏃⎅⟟⋏☌⟒⏁⋔';
+		white-space: pre;
+		display: inline-block;
+		animation: loadingAnim 1.6s infinite steps(11) alternate;
+	}
+
+	@keyframes loadingAnim {
+		100% {
+			transform: translateY(-100%);
+		}
+	}
+</style>
