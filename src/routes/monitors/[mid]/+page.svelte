@@ -194,7 +194,7 @@
 						Pause
 					{/if}
 				</Button>
-				<Button variant="outline" class="h-8" href={`/monitors/configure/${data.id}`}
+				<Button variant="outline" class="h-8" href={`/monitors/${data.id}/configure`}
 					><Settings /> Configure</Button
 				>
 			</div>
