@@ -12,64 +12,6 @@
 
 	let chart: any;
 
-	var optionsLineold = {
-		chart: {
-			height: 320,
-			type: 'line',
-			zoom: {
-				enabled: false
-			},
-			dropShadow: {
-				enabled: true,
-				top: 3,
-				left: 2,
-				blur: 4,
-				opacity: 1
-			}
-		},
-		stroke: {
-			curve: 'smooth',
-			width: 2
-		},
-		// Uncomment and use your custom color if needed
-		colors: ['#000000'],
-		series: [
-			{
-				name: 'Music', // Only one series item
-				data: [1, 15, 26, 20, 33, 27]
-			}
-		],
-		markers: {
-			size: 4,
-			strokeWidth: 0,
-			hover: {
-				size: 6
-			}
-		},
-		grid: {
-			show: true,
-			xaxis: {
-				lines: {
-					show: true
-				}
-			},
-			yaxis: {
-				lines: {
-					show: true
-				}
-			},
-			padding: {
-				bottom: 0
-			}
-		},
-		labels: ['01/15/2002', '01/16/2002', '01/17/2002', '01/18/2002', '01/19/2002', '01/20/2002'],
-		xaxis: {
-			tooltip: {
-				enabled: true
-			}
-		}
-	};
-
 	var optionsLine = {
 		chart: {
 			height: 320,
@@ -83,7 +25,8 @@
 				left: 2,
 				blur: 4,
 				opacity: 1
-			}
+			},
+			fontFamily: 'IBM Plex Mono, Helvetica, Arial, sans-serif'
 		},
 		stroke: {
 			curve: 'smooth',
@@ -129,6 +72,17 @@
 			type: 'datetime',
 			tooltip: {
 				enabled: true
+			}
+		},
+		tooltip: {
+			enabled: true,
+			x: {
+				format: 'dd MMM yyyy HH:mm:ss'
+			},
+			y: {
+				formatter: function (value: String) {
+					return value + ' ms';
+				}
 			}
 		},
 		yaxis: {
@@ -262,9 +216,13 @@
 			</div>
 		</div>
 	</div>
-</div>
 
-<div id="chart"></div>
+	<div
+		class="m-8 flex items-center justify-between rounded-lg border border-gray-200/85 p-3 px-4 shadow-md"
+	>
+		<div id="chart" class="w-full"></div>
+	</div>
+</div>
 
 <style global>
 	:global(.apexcharts-tooltip-marker[shape='circle']::before) {
