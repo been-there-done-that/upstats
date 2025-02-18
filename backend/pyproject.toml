@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "upstats"
+version = "0.1.0"
+description = "Simple Upstats backend"
+authors = ["__deesh__ <internetwasmyidea@gmail.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+httpx = "^0.28.1"
+asyncpg = "^0.30.0"
+fastapi = {extras = ["all"], version = "^0.115.8"}
+uvicorn = "^0.34.0"
+requests = "^2.32.3"
+alembic = "^1.14.1"
+cuid2 = "^2.0.1"
+psycopg2 = "^2.9.10"
+pyjwt = "^2.10.1"
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+python-dotenv = "^1.0.1"
+sqlalchemy = "^2.0.38"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
