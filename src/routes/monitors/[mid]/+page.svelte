@@ -180,7 +180,7 @@
 		</div>
 	</div>
 
-	<div class="mx-12 flex flex-col gap-4">
+	<div class="mx-8 flex flex-col gap-4">
 		<div class=" mx-1 my-6 flex flex-col gap-4">
 			<div class="my-2 flex flex-row items-end justify-end space-x-3">
 				<Button
@@ -198,36 +198,44 @@
 					><Settings /> Configure</Button
 				>
 			</div>
-
-			<div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
-				<div
-					class="col-span-1 inline-flex h-28 flex-col items-center justify-between rounded-lg border border-gray-200/85 p-3 px-4 shadow-md"
-				>
-					<span class="text-base font-medium">Average Response (24 Hour)</span>
-					<span class="text-xl font-semibold">300 ms</span>
-				</div>
-				<div
-					class="col-span-1 inline-flex h-28 flex-col items-center justify-between rounded-lg border border-gray-200/85 p-3 px-4 shadow-md"
-				>
-					<span class="text-base font-medium">Uptime (24 Hours)</span>
-					<span class="text-xl font-semibold">100%</span>
-				</div>
-				<div
-					class="col-span-1 inline-flex h-28 flex-col items-center justify-between rounded-lg border border-gray-200/85 p-3 px-4 shadow-md"
-				>
-					<span class="text-base font-medium">Uptime (30 days)</span>
-					<span class="text-xl font-semibold">100%</span>
-				</div>
-				<div
-					class="col-span-1 inline-flex h-28 flex-col items-center justify-between rounded-lg border border-gray-200/85 p-3 px-4 shadow-md"
-				>
-					<span class="text-base font-medium">Cert Exp In</span>
-					<span class="text-xl font-semibold">64 Days</span>
-				</div>
+			<div class="mt-5 h-32 rounded-sm border border-gray-200 p-3 shadow-md">
+				<table class="w-full">
+					<thead>
+						<tr class="w-full py-4">
+							<th class="w-[30%] border-b border-r py-3">
+								<span class="text-base font-medium">Average Response (24 Hour)</span>
+							</th>
+							<th class="w-[25%] border-b border-r py-3">
+								<span class="text-base font-medium">Uptime (24 Hours)</span>
+							</th>
+							<th class="w-[25%] border-b border-r py-3">
+								<span class="text-base font-medium">Uptime (30 days)</span>
+							</th>
+							<th class="w-[20%] border-b py-3">
+								<span class="text-base font-medium">Cert Exp In</span>
+							</th>
+						</tr>
+					</thead>
+					<tbody class="">
+						<tr>
+							<td class="border-r py-3 text-center">
+								<span class="text-lg font-semibold">300 ms</span>
+							</td>
+							<td class="border-r py-3 text-center">
+								<span class="text-lg font-semibold">100%</span>
+							</td>
+							<td class="border-r py-3 text-center">
+								<span class="text-lg font-semibold">100%</span>
+							</td>
+							<td class="py-3 text-center">
+								<span class="text-lg font-semibold">64 Days</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
-
 	<div
 		class="m-8 flex items-center justify-between rounded-lg border border-gray-200/85 p-3 px-4 shadow-md"
 	>
