@@ -28,7 +28,7 @@
 </Button>
 
 <div>
-	<div class=" mx-10 mt-6 flex">
+	<div class="mx-10 mt-6 flex">
 		<div>
 			<h1 class="text-2xl font-medium italic">
 				<span>Configure Monitor</span>
@@ -55,9 +55,9 @@
 		</div>
 	</div>
 
-	<div class="mx-12 flex flex-col gap-4">
-		<div class=" mx-1 flex flex-col gap-10">
-			<div class="mx-5 my-2 flex flex-row items-end justify-end space-x-3">
+	<div class="flex flex-col gap-4 lg:mx-12">
+		<div class=" mx-1 my-7 flex flex-col gap-4 lg:gap-10">
+			<div class="flex flex-row items-end justify-end space-x-3">
 				<Button
 					variant="destructive"
 					class="h-8"
@@ -75,7 +75,7 @@
 					{/if}
 				</Button>
 			</div>
-			<div class="rounded-lg border p-4 px-8 shadow">
+			<div class="rounded-lg border shadow lg:mx-28">
 				<ConfigForm {data} />
 			</div>
 		</div>

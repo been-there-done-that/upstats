@@ -103,7 +103,7 @@
 			</div>
 		</div>
 		<div class="col-span-full border-l border-black dark:border-gray-500 lg:col-span-10">
-			<div class="m-3 lg:m-6">
+			<div class="mt-9 lg:px-10">
 				{@render children()}
 			</div>
 		</div>

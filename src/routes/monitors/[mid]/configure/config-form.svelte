@@ -4,9 +4,8 @@
 	import * as Select from '$lib/components/ui/select/index.js';
 	import { toast } from 'svelte-sonner';
 	import { formSchema, type FormSchema } from './schema';
-	import SuperDebug, { type SuperValidated, type Infer, superForm } from 'sveltekit-superforms';
+	import { type SuperValidated, type Infer, superForm } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
-	import { browser } from '$app/environment';
 
 	let { data }: { data: { form: SuperValidated<Infer<FormSchema>> } } = $props();
 
@@ -41,7 +40,7 @@
 	);
 </script>
 
-<form method="POST" use:enhance class="flex flex-col gap-3">
+<form method="POST" use:enhance class="m-4 flex flex-col gap-3">
 	<Form.Field {form} name="name">
 		<Form.Control>
 			{#snippet children({ props })}
@@ -62,8 +61,8 @@
 		<Form.FieldErrors />
 	</Form.Field>
 
-	<div class="flex items-center justify-evenly space-x-20">
-		<Form.Field {form} name="method">
+	<div class="flex flex-wrap items-center justify-center gap-3">
+		<Form.Field {form} name="method" class="mx-6 w-full max-w-xs">
 			<Form.Control>
 				{#snippet children({ props })}
 					<Form.Label class="text-base font-semibold italic">Method</Form.Label>
@@ -83,10 +82,10 @@
 			<Form.FieldErrors />
 		</Form.Field>
 
-		<Form.Field {form} name="frequency">
+		<Form.Field {form} name="frequency" class="mx-6 w-full max-w-xs">
 			<Form.Control>
 				{#snippet children({ props })}
-					<Form.Label class="text-base font-semibold italic">Method</Form.Label>
+					<Form.Label class="text-base font-semibold italic">Frequency</Form.Label>
 
 					<Select.Root type="single" bind:value={$formData.frequency} name={props.name}>
 						<Select.Trigger {...props}>
@@ -107,5 +106,7 @@
 			<Form.FieldErrors />
 		</Form.Field>
 	</div>
-	<Form.Button class="max-w-56 italic">Save</Form.Button>
+	<div class="mt-6 flex justify-center">
+		<Form.Button class="w-full max-w-56 italic">Save</Form.Button>
+	</div>
 </form>

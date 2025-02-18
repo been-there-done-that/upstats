@@ -159,15 +159,9 @@
 			<h1 class="text-2xl font-medium">
 				<span>{data.name}</span>
 			</h1>
-			<div class="text-md flex w-full items-center justify-start gap-3">
-				<span
-					class="capitalize"
-					class:text-yellow-500={data.status == MonitorStatus.PAUSED}
-					class:text-green-500={data.status == MonitorStatus.SUCCESS}
-					class:text-red-500={data.status == MonitorStatus.ERROR}>{data.status.toLowerCase()}</span
-				><span class="text-2xl">&#183;</span> <span>Checked every {data.frequency}</span>
-				<span class="text-2xl">&#183;</span>
-				<span
+			<div class="text-md mt-6 flex w-full flex-col items-center justify-start gap-3">
+				<span class="ml-4">Checked: every {data.frequency}</span>
+				<span class="ml-9 w-full"
 					><a
 						href={data.url}
 						target="_blank"
@@ -180,7 +174,7 @@
 		</div>
 	</div>
 
-	<div class="mx-8 flex flex-col gap-4">
+	<div class="mx-2 flex flex-col gap-4 lg:mx-8">
 		<div class=" mx-1 my-6 flex flex-col gap-4">
 			<div class="my-2 flex flex-row items-end justify-end space-x-3">
 				<Button
@@ -198,7 +192,7 @@
 					><Settings /> Configure</Button
 				>
 			</div>
-			<div class="mt-5 h-32 rounded-sm border border-gray-200 p-3 shadow-md">
+			<div class="mt-5 h-fit rounded-sm border border-gray-200 p-3 shadow-md">
 				<table class="w-full">
 					<thead>
 						<tr class="w-full py-4">
@@ -237,7 +231,7 @@
 		</div>
 	</div>
 	<div
-		class="m-8 flex items-center justify-between rounded-lg border border-gray-200/85 p-3 px-4 shadow-md"
+		class="m-2 flex items-center justify-between rounded-lg border border-gray-200/85 p-3 px-4 shadow-md lg:m-8"
 	>
 		<div id="chart" class="w-full"></div>
 	</div>
