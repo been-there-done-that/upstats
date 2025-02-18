@@ -8,7 +8,10 @@
 	import * as AlertDialog from '$lib/components/ui/alert-dialog/index.js';
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
 	import { cn } from '$lib/utils';
+	import autoAnimate from '@formkit/auto-animate';
 	import { goto } from '$app/navigation';
+	import ConfigForm from './monitors/[mid]/configure/config-form.svelte';
+	import type { PageProps } from './$types';
 
 	const BEATS_ITEMS = 10;
 
@@ -54,6 +57,10 @@
 		405: 'bg-red-600',
 		500: 'bg-purple-500'
 	};
+
+	let { data }: PageProps = $props();
+
+	let create = $state(false);
 </script>
 
 <h1 class="text-2xl font-extrabold italic">Monitors</h1>
@@ -89,6 +96,24 @@
 		{/each}
 	</div>
 {/snippet}
+
+<div class="mx-4 flex justify-end" use:autoAnimate>
+	<Button onclick={() => (create = !create)}>
+		{#if create}
+			Close
+		{:else}
+			Create
+		{/if}
+	</Button>
+</div>
+
+<div use:autoAnimate>
+	{#if create}
+		<div class="rounded-lg border shadow lg:mx-28">
+			<ConfigForm {data} />
+		</div>
+	{/if}
+</div>
 
 <div class="my-8 w-full rounded-lg border text-gray-500 shadow-md hover:text-black dark:text-white">
 	<Table.Root>

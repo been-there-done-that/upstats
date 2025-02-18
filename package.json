@@ -55,6 +55,7 @@
 		"zod": "^3.24.2"
 	},
 	"dependencies": {
+		"@formkit/auto-animate": "^0.8.2",
 		"@libsql/client": "^0.14.0",
 		"apexcharts": "^4.4.0",
 		"drizzle-orm": "^0.38.4"
