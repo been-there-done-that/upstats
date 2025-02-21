@@ -95,7 +95,6 @@
 
 	$effect(() => {
 		// we need to check chart object exists or not as it is possible it might be empty before onmount happens
-		console.log({ chart });
 		if ($mode && chart) {
 			chart.updateOptions({
 				colors: [$mode === 'light' ? '#000000' : '#ffffff']

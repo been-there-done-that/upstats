@@ -12,6 +12,7 @@
 	import { goto } from '$app/navigation';
 	import ConfigForm from './monitors/[mid]/configure/config-form.svelte';
 	import type { PageProps } from './$types';
+	import { FREQUENCY } from '$lib/utils';
 
 	const BEATS_ITEMS = 10;
 
@@ -61,6 +62,8 @@
 	let { data }: PageProps = $props();
 
 	let create = $state(false);
+
+	const closeCreate = () => (create = !create);
 </script>
 
 <h1 class="text-2xl font-extrabold italic">Monitors</h1>
@@ -68,7 +71,7 @@
 {#snippet Beats(invoice: any)}
 	<div class="flex h-6 flex-row-reverse gap-1.5">
 		{#each { length: BEATS_ITEMS } as _, idx}
-			{@const value = invoice.beats[idx]}
+			{@const value = invoice.beats ? invoice.beats[idx] : 0}
 			<Tooltip.Provider>
 				<Tooltip.Root>
 					<Tooltip.Trigger
@@ -110,7 +113,7 @@
 <div use:autoAnimate>
 	{#if create}
 		<div class="rounded-lg border shadow lg:mx-28">
-			<ConfigForm {data} />
+			<ConfigForm {data} {closeCreate} />
 		</div>
 	{/if}
 </div>
@@ -123,7 +126,7 @@
 					>Name</Table.Head
 				>
 				<Table.Head class="w-[30%] text-start italic text-black dark:text-white">URL</Table.Head>
-				<Table.Head class="w-[20%] text-start italic text-black dark:text-white">Beats</Table.Head>
+				<Table.Head class="w-[20%] text-center italic text-black dark:text-white">Beats</Table.Head>
 				<Table.Head class="w-[10%] text-center italic text-black dark:text-white"
 					>Frequency</Table.Head
 				>
@@ -132,35 +135,35 @@
 			</Table.Row>
 		</Table.Header>
 		<Table.Body>
-			{#each invoices as invoice, i (i)}
+			{#each data.events as entry, i (i)}
 				<Table.Row class="group">
 					<Table.Cell
 						class=" w-[30%] pl-5 text-left text-gray-500 group-hover:text-black dark:text-white"
-						onclick={async () => await goto(`/monitors/${invoice.id}`)}
+						onclick={async () => await goto(`/monitors/${entry.eid}`)}
 					>
-						{invoice.name}
+						{entry.name}
 					</Table.Cell>
 					<Table.Cell
 						class=" -p-2 w-[30%] px-2 text-start text-gray-500 group-hover:text-black dark:text-white"
 					>
 						<a
-							href={invoice.url}
+							href={entry.url}
 							target="_blank"
 							class="flex items-center gap-2 font-semibold text-purple-600 hover:underline"
 						>
-							<span>{invoice.url}</span> <ExternalLink size={14} /></a
+							<span>{entry.url}</span> <ExternalLink size={14} /></a
 						>
 					</Table.Cell>
 					<Table.Cell
 						class="grid  w-full place-items-center text-gray-500 group-hover:text-black dark:text-white"
 					>
 						<div>
-							{@render Beats(invoice)}
+							{@render Beats(entry)}
 						</div>
 					</Table.Cell>
 					<Table.Cell
 						class=" -p-2 w-[10%] text-center text-gray-500 group-hover:text-black dark:text-white"
-						>{invoice.frequency}</Table.Cell
+						>{Object.keys(FREQUENCY).find((key) => FREQUENCY[key] === entry.frequency)}</Table.Cell
 					>
 					<Table.Cell class=" -p-2 w-[10%] text-center text-black dark:text-white">
 						<DropdownMenu.Root>
@@ -177,7 +180,7 @@
 										<Button
 											variant="ghost"
 											class="h-5 w-full"
-											onclick={() => (selectedRowForDelete = invoice)}
+											onclick={() => (selectedRowForDelete = entry)}
 										>
 											Delete
 										</Button>

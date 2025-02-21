@@ -4,7 +4,6 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const load: PageLoad = async ({ params }) => {
 	console.log({ params });
-	await sleep(3000);
 	return {
 		id: '121212',
 		name: 'Google',

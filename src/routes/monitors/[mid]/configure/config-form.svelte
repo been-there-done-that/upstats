@@ -6,14 +6,38 @@
 	import { formSchema, type FormSchema } from './schema';
 	import { type SuperValidated, type Infer, superForm } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
+	import { invalidateAll } from '$app/navigation';
+	import { PUBLIC_BASE_URL } from '$env/static/public';
 
-	let { data }: { data: { form: SuperValidated<Infer<FormSchema>> } } = $props();
+	let {
+		data,
+		closeCreate
+	}: { data: { form: SuperValidated<Infer<FormSchema>> }; closeCreate: () => {} } = $props();
 
 	const form = superForm(data.form, {
 		validators: zodClient(formSchema),
-		onUpdated: ({ form: f }) => {
+		onUpdated: async ({ form: f }) => {
 			if (f.valid) {
-				toast.success(`You submitted ${JSON.stringify(f.data, null, 2)}`);
+				const req = await fetch(`${PUBLIC_BASE_URL}/api/v1/event`, {
+					body: JSON.stringify(f.data),
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				});
+				try {
+					console.log(req.statusText);
+					if (req.statusText == 'OK') {
+						let res = await req.json();
+						toast.success('Event Monitor Created...');
+						closeCreate();
+					} else {
+						toast.error(`Failed to Save data ${await req.text()}`);
+					}
+				} catch (e) {
+					toast.error(`Faileds to Save data ${e}`);
+				}
+				await invalidateAll();
 			} else {
 				toast.error('Please fix the errors in the form.');
 			}

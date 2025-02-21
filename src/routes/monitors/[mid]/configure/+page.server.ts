@@ -3,6 +3,7 @@ import { superValidate } from 'sveltekit-superforms';
 import { formSchema } from './schema';
 import { zod } from 'sveltekit-superforms/adapters';
 import { fail } from '@sveltejs/kit';
+import { BASE_URL } from '$env/static/private';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -40,6 +41,7 @@ export const actions: Actions = {
 				form
 			});
 		}
+
 		return {
 			form
 		};

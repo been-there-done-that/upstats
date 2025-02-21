@@ -1,5 +1,5 @@
 import datetime
-from typing import Annotated, List
+from typing import List
 
 from fastapi import FastAPI, Depends
 import asyncio
@@ -10,6 +10,7 @@ from contextlib import asynccontextmanager
 from pydantic import BaseModel, model_validator
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.orm import Session
+from starlette.middleware.cors import CORSMiddleware
 
 from choices import MethodChoices
 from database import scoped_session
@@ -30,6 +31,15 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
 class EventCreate(BaseModel):
     name: str
     url: str
@@ -47,7 +57,7 @@ class EventCreate(BaseModel):
 
 
 class EventUpdate(EventCreate):
-    rid: str
+    eid: str
 
 
 @app.get("/api/v1/event", response_model=List[EventUpdate])
