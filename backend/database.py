@@ -1,17 +1,18 @@
+import os
 from contextlib import contextmanager
+from urllib.parse import quote
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
-import os
 
 # Load environment variables from .env
 load_dotenv()
 
 
-# DATABASE_URL="postgresql://postgres:Deadpool1234*123@db.qzsvcwpkdmvtcgfninpz.supabase.co:5432/postgres"
 # Replace with your own PostgreSQL instance
-DATABASE_URL = "postgresql://postgres:postgres@localhost/upstats"
+# DATABASE_URL = "postgresql://postgres:postgres@localhost/upstats"
+DATABASE_URL = f"postgresql://{os.getenv('USER_NAME')}:{os.getenv('PASSWORD')}@{os.getenv('HOST')}:{os.getenv('PORT')}/{os.getenv('DBNAME')}"
 
 engine = create_engine(DATABASE_URL, echo=False)
 SessionLocal = sessionmaker(bind=engine, autoflush=False)
