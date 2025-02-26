@@ -57,6 +57,8 @@
 	"dependencies": {
 		"@formkit/auto-animate": "^0.8.2",
 		"@libsql/client": "^0.14.0",
+		"@sveltejs/adapter-auto": "^4.0.0",
+		"@sveltejs/adapter-node": "^5.2.12",
 		"apexcharts": "^4.4.0",
 		"drizzle-orm": "^0.38.4"
 	}
