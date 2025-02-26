@@ -69,4 +69,5 @@ async def process_tasks():
         await asyncio.sleep(INTERVAL)
 
 
-asyncio.run(process_tasks())
+if __name__ == "__main__":
+    asyncio.run(process_tasks())

@@ -11,12 +11,10 @@ from sqlalchemy import (
     ForeignKey,
     UniqueConstraint,
     Float,
-    JSON,
     ColumnElement,
     Numeric,
     Index,
 )
-from sqlalchemy.dialects.postgresql import JSONB
 from cuid2 import cuid_wrapper
 
 

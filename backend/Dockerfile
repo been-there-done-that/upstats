@@ -18,4 +18,4 @@ RUN poetry install --no-root
 COPY . .
 
 # Run the FastAPI application with Gunicorn and Uvicorn workers
-CMD ["gunicorn", "-w", "4", "-k", "uvicorn.workers.UvicornWorker", "main:app", "--bind", "0.0.0.0:8000"]
+CMD ["uvicorn", "main:app", "--port", "8080", "--host", "0.0.0.0"]
