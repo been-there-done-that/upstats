@@ -1,7 +1,9 @@
 import datetime
-from typing import List
+import uuid
+from typing import List, Optional, Dict
 
 import httpx
+import pydantic
 from fastapi import FastAPI, Depends
 import asyncio
 import concurrent.futures
@@ -9,14 +11,15 @@ import requests
 from contextlib import asynccontextmanager
 
 from pydantic import BaseModel, model_validator
-from sqlalchemy import select, func, update
+from pydantic.v1 import UUID4
+from sqlalchemy import select, func, update, and_
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.orm import Session
 from starlette.middleware.cors import CORSMiddleware
 
 from choices import MethodChoices
 from database import scoped_session, scoped_session_context
-from models import Events, EventLogs
+from models import Events, EventLogs, LastEventRuns
 
 executor = concurrent.futures.ThreadPoolExecutor()
 
@@ -63,9 +66,34 @@ class EventUpdate(EventCreate):
     eid: str
 
 
-@app.get("/api/v1/event", response_model=List[EventUpdate])
+@app.get("/api/v1/event")
 def get_event(db: Session = Depends(scoped_session)):
-    return db.query(Events).all()
+    subquery = (
+        db.query(LastEventRuns.eid, LastEventRuns.id, LastEventRuns.run_at, LastEventRuns.status_code)
+        .order_by(LastEventRuns.run_at.desc())
+        .subquery()
+    )
+
+    events_query = (
+        db.query(
+            Events.eid,
+            Events.name,
+            Events.url,
+            Events.deleted,
+            Events.frequency,
+            func.array_agg(
+                func.jsonb_build_object(
+                    "id", subquery.c.id, "date", subquery.c.run_at, "status_code", subquery.c.status_code
+                )
+            ).label("beats"),
+        )
+        .outerjoin(subquery, Events.id == subquery.c.eid)
+        .group_by(Events.id)
+    )
+    column_names = [desc["name"] for desc in events_query.column_descriptions]
+
+    results = events_query.all()
+    return [dict(zip(column_names, rs)) for rs in results]
 
 
 @app.post("/api/v1/event")
@@ -80,7 +108,7 @@ def create_event(body: EventCreate, db: Session = Depends(scoped_session)):
 def update_event(body: EventUpdate, db: Session = Depends(scoped_session)):
     stmt_intermediate = insert(Events).values([body.model_dump()])
     stmt = stmt_intermediate.on_conflict_do_update(
-        index_elements=["rid"],
+        index_elements=["eid"],
         set_=dict(
             name=stmt_intermediate.excluded.name,
             url=stmt_intermediate.excluded.url,
@@ -91,6 +119,32 @@ def update_event(body: EventUpdate, db: Session = Depends(scoped_session)):
     )
     db.execute(stmt)
     return dict(status="ok")
+
+
+@app.get("/api/v1/event/{eid}/logs")
+def get_event(eid: str, db: Session = Depends(scoped_session)):
+    today_start = func.date_trunc("day", func.current_timestamp())
+
+    sub_results = (
+        db.query(EventLogs.run_at.label("x"), EventLogs.time_took.label("y"))
+        .filter(EventLogs.run_at.between(today_start, func.current_timestamp()))
+        .join(Events, and_(Events.id == EventLogs.eid, Events.eid == eid))
+        .order_by(EventLogs.run_at.desc())
+        .all()
+    )
+    rows = (
+        db.query(
+            Events.eid,
+            Events.name,
+            Events.url,
+            Events.deleted,
+            Events.frequency,
+        )
+        .filter(Events.eid==eid).first()
+    )
+    data = dict(rows._mapping)  # noqa
+    data['logs'] = [r._mapping for r in sub_results]   # noqa
+    return  data
 
 
 def fetch_url(event: dict):

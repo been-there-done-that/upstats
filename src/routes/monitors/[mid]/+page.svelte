@@ -10,8 +10,13 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/environment';
 	import { mode } from 'mode-watcher';
+	import { FREQUENCY } from '$lib/utils';
+	import { PUBLIC_BASE_URL } from '$env/static/public';
+	import { page } from '$app/state';
 
 	let chart: any;
+
+	let data = $state({});
 
 	var optionsLine = {
 		chart: {
@@ -37,13 +42,7 @@
 		series: [
 			{
 				name: 'Time Taken (ms)',
-				data: [
-					{ x: new Date('2024-02-10T10:00:00').getTime(), y: 150 },
-					{ x: new Date('2024-02-10T10:05:00').getTime(), y: 180 },
-					{ x: new Date('2024-02-10T10:10:00').getTime(), y: 120 },
-					{ x: new Date('2024-02-10T10:15:00').getTime(), y: 200 },
-					{ x: new Date('2024-02-10T10:20:00').getTime(), y: 170 }
-				]
+				data: []
 			}
 		],
 		markers: {
@@ -102,12 +101,24 @@
 		}
 	});
 
+	const fetchEventLogs = async () => {
+		let url = `${PUBLIC_BASE_URL}/api/v1/event/${page.params.mid}/logs`;
+		const r = await fetch(url);
+		const events = await r.json();
+		data = events;
+	};
+
 	onMount(async () => {
+		await fetchEventLogs();
 		if (browser) {
 			const ApexCharts = (await import('apexcharts')).default;
 			const chartElement = document.getElementById('chart');
 			chart = new ApexCharts(chartElement, optionsLine);
 			await chart.render();
+			chart.appendSeries({
+				name: 'Time Taken (ms)',
+				data: data.logs
+			});
 		}
 	});
 
@@ -116,7 +127,7 @@
 		if (chart) chart.destroy();
 	});
 
-	let { data }: PageProps = $props();
+	// let { data }: PageProps = $props();
 
 	class MonitorStatus {
 		static SUCCESS = 'SUCCESS';
@@ -152,14 +163,18 @@
 <div>
 	<div class=" flex">
 		<div class="flex items-center justify-center">
-			{@render Ping(data.status)}
+			{@render Ping('SUCCESS')}
 		</div>
 		<div>
 			<h1 class="text-2xl font-medium">
 				<span>{data.name}</span>
 			</h1>
 			<div class="text-md mt-6 flex w-full flex-col items-center justify-start gap-3">
-				<span class="ml-4">Checked: every {data.frequency}</span>
+				<span class="ml-4"
+					>Checked: every {Object.keys(FREQUENCY).find(
+						(key) => FREQUENCY[key] === data.frequency
+					)}</span
+				>
 				<span class="ml-9 w-full"
 					><a
 						href={data.url}
