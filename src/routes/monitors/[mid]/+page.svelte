@@ -16,79 +16,45 @@
 
 	let chart: any;
 
-	let data = $state({});
+	let data: {
+		logs: Array<any>;
+		name: string;
+		url: string;
+		frequency: number;
+	} = $state({
+		logs: [],
+		name: '',
+		url: '',
+		frequency: 0
+	});
 
-	var optionsLine = {
+	var options = {
 		chart: {
-			height: 320,
-			type: 'line',
-			zoom: {
-				enabled: false
-			},
-			dropShadow: {
-				enabled: true,
-				top: 3,
-				left: 2,
-				blur: 4,
-				opacity: 1
-			},
-			fontFamily: 'IBM Plex Mono, Helvetica, Arial, sans-serif'
+			type: 'area',
+			height: 320
 		},
-		stroke: {
-			curve: 'smooth',
-			width: 2
-		},
-		colors: [$mode == 'light' ? '#000000' : '#ffffff'], // Custom color
-		series: [
-			{
-				name: 'Time Taken (ms)',
-				data: []
-			}
-		],
+		colors: ['#000'],
 		markers: {
-			size: 4,
+			size: 2,
 			strokeWidth: 0,
 			hover: {
-				size: 6
-			}
-		},
-		grid: {
-			show: true,
-			xaxis: {
-				lines: {
-					show: true
+				size: 6,
+				sizeOffset: 3
 				}
-			},
-			yaxis: {
-				lines: {
-					show: true
-				}
-			},
-			padding: {
-				bottom: 0
-			}
 		},
-		xaxis: {
-			type: 'datetime',
-			tooltip: {
-				enabled: true
-			}
+		stroke: {
+			width: 2,
+			curve: 'smooth'
 		},
-		tooltip: {
-			enabled: true,
-			x: {
-				format: 'dd MMM yyyy HH:mm:ss'
-			},
-			y: {
-				formatter: function (value: String) {
-					return value + ' ms';
-				}
-			}
+		fill: {
+			type: 'gradient'
 		},
-		yaxis: {
-			title: {
-				text: 'Time (ms)'
-			}
+		dataLabels: {
+			enabled: false
+		},
+		series: [],
+		noData: {
+			text: 'Loading...'
 		}
 	};
 
@@ -113,12 +79,18 @@
 		if (browser) {
 			const ApexCharts = (await import('apexcharts')).default;
 			const chartElement = document.getElementById('chart');
-			chart = new ApexCharts(chartElement, optionsLine);
+			chart = new ApexCharts(chartElement, options);
 			await chart.render();
-			chart.appendSeries({
-				name: 'Time Taken (ms)',
-				data: data.logs
-			});
+			console.log(data.logs);
+
+			chart.updateSeries([
+				{
+					name: 'Something',
+					data: data.logs.map((r) => {
+						return { x: new Date(r.x).toLocaleTimeString(), y: r.y };
+					})
+				}
+			]);
 		}
 	});
 

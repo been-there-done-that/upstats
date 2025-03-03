@@ -129,7 +129,8 @@ def get_event(eid: str, db: Session = Depends(scoped_session)):
         db.query(EventLogs.run_at.label("x"), EventLogs.time_took.label("y"))
         .filter(EventLogs.run_at.between(today_start, func.current_timestamp()))
         .join(Events, and_(Events.id == EventLogs.eid, Events.eid == eid))
-        .order_by(EventLogs.run_at.desc())
+        .order_by(EventLogs.run_at.desc()).
+        limit(30)
         .all()
     )
     rows = (
@@ -190,15 +191,14 @@ async def process_tasks():
                 .order_by(Events.id)
             )
             events = [i.__dict__ for i in db.execute(stmt).scalars().all()]
-        loop = asyncio.get_running_loop()
-        print("Execution started", datetime.datetime.now())
-        for event in events:
-            print(loop.run_in_executor(executor, fetch_url, event))
+            loop = asyncio.get_running_loop()
+            print("Execution started", datetime.datetime.now())
+            for event in events:
+                print(loop.run_in_executor(executor, fetch_url, event))
 
-        update_stmt = (
-            update(Events).values(dict(last_run_at=func.now())).where(Events.id.in_([e["id"] for e in events]))
-        )
-        db.execute(update_stmt)
-        db.commit()
+            update_stmt = (
+                update(Events).values(dict(last_run_at=func.now())).where(Events.id.in_([e["id"] for e in events]))
+            )
+            db.execute(update_stmt)
         print("Execution Ended", datetime.datetime.now())
         await asyncio.sleep(INTERVAL)
