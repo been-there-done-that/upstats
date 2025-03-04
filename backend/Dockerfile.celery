@@ -1,8 +1,19 @@
 FROM python:3.12-alpine
 WORKDIR /app
 
-COPY base.py /app
-COPY celery_tasks/tasks.py /app
+# Install Poetry to manage dependencies
+RUN pip install poetry
 
-RUN pip install --no-cache-dir celery redis flower supervisor python-env python-dotenv sqlalchemy psycopg2-binary
-CMD ["celery", "-A", "tasks", "worker", "--beat", "--loglevel=info"]
+# Configure Poetry to install dependencies into the system Python, not a virtual environment
+ENV POETRY_VIRTUALENVS_CREATE=false
+
+# Copy only the Poetry configuration files first to leverage Docker caching
+COPY pyproject.toml poetry.lock ./
+
+# Install dependencies directly from Poetry without installing the project itself
+RUN poetry install --no-root
+
+# Copy the rest of the application code
+COPY . .
+
+CMD ["celery", "-A", "celery_tasks.tasks", "worker", "--beat", "--loglevel=info"]
