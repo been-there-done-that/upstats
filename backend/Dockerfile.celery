@@ -1,0 +1,8 @@
+FROM python:3.12-alpine
+WORKDIR /app
+
+COPY base.py /app
+COPY celery_tasks/tasks.py /app
+
+RUN pip install --no-cache-dir celery redis flower supervisor python-env python-dotenv sqlalchemy psycopg2-binary
+CMD ["celery", "-A", "tasks", "worker", "--beat", "--loglevel=info"]

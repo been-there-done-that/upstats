@@ -40,7 +40,7 @@
 			hover: {
 				size: 6,
 				sizeOffset: 3
-				}
+			}
 		},
 		stroke: {
 			width: 2,

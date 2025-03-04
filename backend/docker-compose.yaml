@@ -1,0 +1,6 @@
+services:
+  celery:
+    env_file:
+      - .env
+    build:
+      dockerfile: Dockerfile.celery

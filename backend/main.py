@@ -129,8 +129,8 @@ def get_event(eid: str, db: Session = Depends(scoped_session)):
         db.query(EventLogs.run_at.label("x"), EventLogs.time_took.label("y"))
         .filter(EventLogs.run_at.between(today_start, func.current_timestamp()))
         .join(Events, and_(Events.id == EventLogs.eid, Events.eid == eid))
-        .order_by(EventLogs.run_at.desc()).
-        limit(30)
+        .order_by(EventLogs.run_at.desc())
+        .limit(30)
         .all()
     )
     rows = (
@@ -141,11 +141,12 @@ def get_event(eid: str, db: Session = Depends(scoped_session)):
             Events.deleted,
             Events.frequency,
         )
-        .filter(Events.eid==eid).first()
+        .filter(Events.eid == eid)
+        .first()
     )
     data = dict(rows._mapping)  # noqa
-    data['logs'] = [r._mapping for r in sub_results]   # noqa
-    return  data
+    data["logs"] = [r._mapping for r in sub_results]  # noqa
+    return data
 
 
 def fetch_url(event: dict):
