@@ -24,17 +24,7 @@ from models import Events, EventLogs, LastEventRuns
 executor = concurrent.futures.ThreadPoolExecutor()
 
 
-INTERVAL = 5
-
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):  # noqa
-    task = asyncio.create_task(process_tasks())
-    yield
-    task.cancel()
-
-
-app = FastAPI(lifespan=lifespan)
+app = FastAPI()
 
 
 app.add_middleware(
@@ -202,4 +192,4 @@ async def process_tasks():
             )
             db.execute(update_stmt)
         print("Execution Ended", datetime.datetime.now())
-        await asyncio.sleep(INTERVAL)
+        await asyncio.sleep(5)
