@@ -9,10 +9,8 @@ load_dotenv()
 REDIS_URL = f"{os.getenv('REDIS_URL')}/0"
 DATABASE_URL = f"postgresql://{os.getenv('USER_NAME')}:{os.getenv('PASSWORD')}@{os.getenv('HOST')}:{os.getenv('PORT')}/{os.getenv('DBNAME')}"
 
-app = Celery("upstats")
-
-# Configure Celery
-app.conf.update(
+app = Celery(
+    "upstats",
     broker_url=REDIS_URL,
     result_backend=f"db+{DATABASE_URL}",
     database_create_tables_at_setup=True,
